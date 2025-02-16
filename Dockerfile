@@ -11,7 +11,8 @@ COPY . .
 ENV SENTRY_DSN=${sentry_dsn}
 
 # Cache dependencies for faster builds
-RUN deno cache main.ts
+RUN deno install
+RUN deno main.ts
 
 # Expose any required ports (if needed)
 # EXPOSE 8000
