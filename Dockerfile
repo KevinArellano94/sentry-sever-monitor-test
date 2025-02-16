@@ -1,21 +1,16 @@
-# Use the official Deno image
-FROM denoland/deno:alpine-1.40.3
+FROM denoland/deno:2.1.10
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
 # Copy the project files
 COPY . .
 
-# Set necessary environment variables
+# Set environment variable
 ENV SENTRY_DSN=${sentry_dsn}
 
-# Cache dependencies for faster builds
-RUN deno install
-RUN deno main.ts
+# Cache dependencies
+RUN deno cache main.ts
 
-# Expose any required ports (if needed)
-# EXPOSE 8000
-
-# Run the Deno application
+# Run the application
 CMD ["deno", "run", "--allow-net", "--allow-env", "--allow-hrtime", "--allow-sys", "main.ts"]
